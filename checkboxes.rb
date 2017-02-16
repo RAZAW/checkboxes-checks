@@ -20,13 +20,22 @@ end
 
 run do
 
-@driver.get 'http://the-internet.herokuapp.com/checkboxes'
-checkboxes = @driver.find_elements(css: 'input[type="checkbox"]')
+	@driver.get 'http://the-internet.herokuapp.com/checkboxes'
+	checkboxes = @driver.find_elements(css: 'input[type="checkbox"]')
+	expect(checkboxes.last.attribute('checked')).not_to be_nil
 
+	end
+=begin
 puts "With .attribute('checked')"
 checkboxes.each { |checkbox| puts checkbox.attribute('checked').inspect }
 
 puts "\nWith .selected?"
 checkboxes.each { |checkbox| puts checkbox.selected?.inspect }
+=end
 
-end
+run do
+	@driver.get 'http://the-internet.herokuapp.com/checkboxes'
+	checkboxes = @driver.find_elements(css: 'input[type="checkbox"]')
+	expect(checkboxes.last.selected?).to eql true
+	
+	end
